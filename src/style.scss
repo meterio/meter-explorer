@@ -1,0 +1,23 @@
+$body-bg: #f8f8f8;
+$gray-color: #808080;
+$mono-font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
+
+h1 { font-size: 1.8em; margin: 0.8em 0; }
+h2 { font-size: 1.5em; margin: 0.7em 0; }
+h3 { font-size: 1.2em; margin: 0.6em 0; }
+h4 { font-size: 1em; margin: 0.5em 0; }
+.text-mono {
+    font-family: $mono-font-family;
+}
+.field-name, .field-name *{
+    font-size: 0.8rem;
+    color:$gray-color;
+    @extend .text-mono;
+    line-height: 220%;
+}
+
+.field-value, .field-value * {
+    font-size: 0.8rem;
+    @extend .text-mono;
+    line-height: 220%;
+}

@@ -1,19 +1,27 @@
 <template>
-  <div>
-    <img alt="Vue logo" src="/assets/logo.png">
-    <router-link to="/hello">Hello</router-link>
-    <router-link to="/blocks">Blocks</router-link>
+  <div style="min-height:100%;background:#f5f5f5;">
+    <!-- <img alt="Vue logo" src="/assets/logo.png"> -->
     <div>
-      View: {{$route.fullPath}}
-      <router-view :key="$route.fullPath"></router-view>
+      <Navbar/>
+      <div class="container">
+        <router-view :key="$route.fullPath"></router-view>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { Vue, Component } from "vue-property-decorator";
+import Navbar from "./components/Navbar";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import "./style.scss";
 
-@Component
+@Component({
+  components: {
+    Navbar
+  }
+})
 export default class App extends Vue {}
 </script>
 
