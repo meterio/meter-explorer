@@ -2,22 +2,72 @@ $body-bg: #f8f8f8;
 $gray-color: #808080;
 $mono-font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
 
-h1 { font-size: 1.8em; margin: 0.8em 0; }
-h2 { font-size: 1.5em; margin: 0.7em 0; }
-h3 { font-size: 1.2em; margin: 0.6em 0; }
-h4 { font-size: 1em; margin: 0.5em 0; }
+h1,.h1 { font-size: 1.7em; margin: 0.8em 0; font-weight: bold;}
+h2,.h2 { font-size: 1.4em; margin: 0.7em 0; font-weight: bold;}
+h3,.h3 { font-size: 1.3em; margin: 0.6em 0; font-weight: bold;}
+h4,.h4 { font-size: 1.2em; margin: 0.5em 0; font-weight: bold;}
+h5,.h5 { font-size: 1.1em; margin: 0.5em 0; }
+h6,.h6 { font-size: 1.05em; margin: 0.5em 0; }
+
+.h5,.h6{
+    margin-top:0;
+}
+.badge{
+    padding:0.23rem 0.3rem !important;
+}
+body, html, p, div{
+    font-size:.95rem;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,sans-serif;
+}
 .text-mono {
     font-family: $mono-font-family;
 }
+.text-gray{
+    color:$gray-color;
+}
 .field-name, .field-name *{
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color:$gray-color;
     @extend .text-mono;
     line-height: 220%;
 }
 
 .field-value, .field-value * {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     @extend .text-mono;
     line-height: 220%;
+}
+
+.token-amount {
+    font-family: $mono-font-family;
+    letter-spacing: -1px;
+}
+.token-symbol {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 0.5px inset;
+    border-radius: 3px;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}
+
+.mtrg-amount{
+    @extend .token-amount;
+    &::after{
+        content: "MTRG";
+        left:0;
+        top:0;
+        margin-left: 5px;
+        @extend .token-symbol;
+    }
+}
+
+.mtr-amount{
+    @extend .token-amount;
+    &::after{
+        content: "MTR";
+        left:0;top:0;
+        margin-left: 5px;
+        @extend .token-symbol;
+    }
 }

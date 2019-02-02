@@ -3,16 +3,20 @@ import VueRouter from "vue-router";
 
 import ItWorks from "./views/ItWorks.vue";
 import HelloWorld from "./views/HelloWorld.vue";
-import Blocks from "./views/Blocks.vue";
-import BlockDetail from "./views/BlockDetail.vue";
-import TxDetail from "./views/TxDetail.vue";
+import RecentBlocks from "./views/RecentBlocks.vue";
+import Block from "./views/Block.vue";
+import Tx from "./views/Tx.vue";
+import Account from "./views/Account.vue";
+import Search from "./views/Search.vue";
 Vue.use(VueRouter);
 
 const routes = [
-  { path: "/", name: "home", component: Blocks },
-  { path: "/blocks", name: "blocks", component: Blocks },
-  { path: "/block/:id", name: "block-detail", component: BlockDetail },
-  { path: "/tx/:id", name: "transaction", component: TxDetail },
+  { path: "/", name: "home", component: RecentBlocks },
+  { path: "/recent", name: "recent-blocks", component: RecentBlocks },
+  { path: "/block/:id", name: "block", component: Block },
+  { path: "/tx/:id", name: "tx", component: Tx },
+  { path: "/account/:addr", name: "account", component: Account },
+  { path: "/search", name: "search", component: Search },
   { path: "/hello", name: "hello", component: HelloWorld },
   { path: "/*", name: "default", component: ItWorks }
 ];

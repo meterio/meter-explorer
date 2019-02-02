@@ -21,11 +21,13 @@
           <div>{{block.size}}</div>
           <div>{{block.timestamp}}</div>
           <div>
-            <router-link :to="{path:'/block/'+block.parentID}">{{block.parentID}}</router-link>
+            <router-link :to="{name:'block', params:{id:block.parentID}}">{{block.parentID}}</router-link>
           </div>
           <div>{{block.gasUsed}}</div>
           <div>{{block.totalScore}}</div>
-          <div>{{block.signer}}</div>
+          <div>
+            <router-link :to="{name:'account',params:{addr:block.signer}}">{{block.signer}}</router-link>
+          </div>
           <div>{{block.beneficiary}}</div>
           <div>{{block.stateRoot}}</div>
           <div>{{block.txsRoot}}</div>

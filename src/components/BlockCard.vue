@@ -1,16 +1,30 @@
 <template>
-  <div class="block-card p-1">
+  <div class="pt-2">
     <b-card>
       <b-row>
-        <b-col cols="2" class="field-name">
-          <div>ID</div>
-          <div>Height</div>
-        </b-col>
-        <b-col cols="10" class="field-value">
-          <div>
-            <router-link :to="{path:'/block/'+block.id}">{{block.id}}</router-link>
+        <b-col cols="3">
+          <div class="h5">
+            <router-link :to="{name:'block', params:{id:block.id}}">{{block.number}}</router-link>
           </div>
-          <div>{{block.number | abbr}}</div>
+          <div>{{block.id | abbr}}</div>
+          <div class="text-gray">{{block.timestamp | ago}}</div>
+        </b-col>
+
+        <b-col cols="3" class="text-center">
+          <div class="text-uppercase">Gas Used</div>
+          <div class="h5">{{block.gasUsed}}</div>
+        </b-col>
+
+        <b-col cols="3" class="text-center">
+          <div class="text-uppercase">Transaction</div>
+          <div class="h5">{{block.transactions.length}}</div>
+        </b-col>
+
+        <b-col cols="3" class="text-center">
+          <div class="text-uppercase">Signer</div>
+          <div>
+            <router-link :to="{name:'account', params:{addr:block.signer}}">{{block.signer | abbr}}</router-link>
+          </div>
         </b-col>
       </b-row>
     </b-card>
