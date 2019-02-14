@@ -4,6 +4,7 @@
     <b-card>
       <b-row>
         <b-col cols="2" class="field-name">
+          <div>Height</div>
           <div>ID</div>
           <div>Size</div>
           <div>Timestamp</div>
@@ -17,6 +18,7 @@
           <div>Receipt Root</div>
         </b-col>
         <b-col cols="10" class="field-value">
+          <div>#{{block.number}}</div>
           <div>{{block.id}}</div>
           <div>{{block.size}}</div>
           <div>{{block.timestamp}}</div>
@@ -35,6 +37,16 @@
         </b-col>
       </b-row>
     </b-card>
+
+    <div v-if="block.transactions && block.transactions.length>0">
+      <h4 class="text-gray pt-3">{{txText}}</h4>
+      <div class="card my-2" v-for="(tx,i) in block.transactions" :key="i">
+        <div class="card-body">
+          {{i+1}}.
+          <router-link :to="{name:'tx', params:{id:tx}}">{{tx}}</router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -44,13 +56,21 @@ export default {
   props: {},
   data: function() {
     return {
-      block: {}
+      block: {},
+      txText: ""
     };
   },
   mounted: function() {
     web3.eth.getBlock(this.$route.params.id).then(
       function(blk) {
         this.block = blk;
+        if (blk.transactions) {
+          if (blk.transactions.length == 1) {
+            this.txText = "1 Transaction";
+          } else if (blk.transactions.length > 1) {
+            this.txText = new String(blk.transactions.length) + " Transactions";
+          }
+        }
       }.bind(this)
     );
   }

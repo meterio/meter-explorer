@@ -21,7 +21,7 @@
           <div>Chain Tag</div>
         </b-col>
         <div v-if="tx.meta">
-          <b-col cols="10" class="field-value">
+          <b-col cols="12" class="field-value">
             <div>{{tx.id}}</div>
             <div>{{tx.size}} B</div>
             <div>{{receipt.gasUsed}} / {{tx.gas}}</div>
@@ -38,14 +38,20 @@
               >{{receipt.gasPayer}}</router-link>
             </div>
             <div>{{tx.meta.blockTimestamp | date}}</div>
-            <div>{{tx.meta.blockNumber}}</div>
+            <div>
+              <router-link
+                :to="{name:'block', params: {id: tx.meta.blockID}}"
+              >#{{tx.meta.blockNumber}}</router-link>
+            </div>
             <div class="mtr-amount">{{receipt.reward|amount}}</div>
             <div>{{tx.blockRef}}</div>
             <div>{{tx.expiration}}</div>
             <div>{{tx.nonce}}</div>
-            <div>
-              <span v-if="!!tx.dependsOn">-</span>
+            <div>-
+              <!--
+              <span v-if="tx.dependsOn != undefined">-</span>
               <router-link v-else :to="{name:'tx', params:{id:tx.dependsOn}}">{{tx.dependsOn}}</router-link>
+              -->
             </div>
             <div>{{tx.chainTag}}</div>
           </b-col>

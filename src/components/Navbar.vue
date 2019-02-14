@@ -45,19 +45,20 @@
 </template>
 
 <script>
-import { Vue, Component } from "vue-property-decorator";
+export default {
+  data: function() {
+    return { searchString: "" };
+  },
+  methods: {
+    search() {
+      const str = this.searchString;
+      this.searchString = "";
+      if (str == "") {
+        return;
+      }
 
-@Component
-export default class Navbar extends Vue {
-  searchString = "";
-  search() {
-    const str = this.searchString;
-    this.searchString = "";
-    if (str == "") {
-      return;
+      this.$router.push({ name: "search", query: { q: str } });
     }
-
-    this.$router.push({ name: "search", query: { q: str } });
   }
-}
+};
 </script>

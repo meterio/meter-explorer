@@ -15,7 +15,7 @@ h6,.h6 { font-size: 1.05em; margin: 0.5em 0; }
 .badge{
     padding:0.23rem 0.3rem !important;
 }
-body, html, p, div{
+body, html, p, div, textarea{
     font-size:.95rem;
     font-family: -apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,sans-serif;
 }
@@ -70,4 +70,16 @@ body, html, p, div{
         margin-left: 5px;
         @extend .token-symbol;
     }
+}
+
+.heading {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    display: block;
+}
+.caption {
+    font-size: 0.75rem;
+    display:block;
 }
