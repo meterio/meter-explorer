@@ -25,14 +25,14 @@
           -->
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-nav-form>
+            <b-nav-form @submit.prevent>
               <b-form-input
                 v-model="searchString"
                 size="sm"
                 class="mr-lg-2"
                 type="text"
-                placeholder="block, tx or account"
-                @keypress.enter="search"
+                placeholder="block, height, tx"
+                @keydown.enter.native="search"
                 style="width:300px;"
               />
               <b-button size="sm" class="my-2 my-sm-0" variant="success" @click="search">Search</b-button>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+
 export default {
   data: function() {
     return { searchString: "" };
