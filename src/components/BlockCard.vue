@@ -8,6 +8,7 @@
           </div>
           <div>{{block.id | abbr}}</div>
           <div class="text-gray">{{block.timestamp | ago}}</div>
+          <div style="display:none">{{now}}</div>
         </b-col>
 
         <b-col cols="3" class="text-center">
@@ -35,7 +36,8 @@
 export default {
   name: "BlockCard",
   props: {
-    block: Object
+    block: Object,
+    now: Number
   }
 };
 </script>

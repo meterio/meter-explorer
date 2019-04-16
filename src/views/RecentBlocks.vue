@@ -4,7 +4,7 @@
 
     <transition-group tag="div" name="block-list">
       <div v-for="block in blocks" :key="block.number">
-        <BlockCard v-bind:block="block"></BlockCard>
+        <BlockCard v-bind:block="block" v-bind:now="now"></BlockCard>
       </div>
     </transition-group>
   </div>
@@ -24,7 +24,8 @@ export default {
       blocks: [],
       topHeight: 0,
       bottomHeight: 0,
-      bottom: false
+      bottom: false,
+      now: Date.now()
     };
   },
   methods: {
@@ -72,6 +73,7 @@ export default {
     // timer
     window.setInterval(
       function() {
+        this.now = Date.now();
         web3.eth.getBlockNumber().then(
           async function(height) {
             for (let h = this.topHeight + 1; h < height; h++) {
