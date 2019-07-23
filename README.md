@@ -1,31 +1,33 @@
-# m-explorer
+# Meter Explorer
 
-## Project setup
+---
+
+Meter explorer is a browser project that displays information of latest blocks finalized on meter testnet.
+
+## Contribute
+
+---
+
+### Setup & Run
+
 ```
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Build and release
+
 ```
 npm run build
 ```
 
-### Run your tests
+### Test
+
 ```
 npm run test
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### deployment
+### Deployment
 
 sample nginx config
 
@@ -37,23 +39,16 @@ server {
 	index index.html;
 	root /var/www/explorer;
 }
-
-server {
-	listen 443 ssl http2;
-	server_name scan.meter.io;
-
-	ssl_certificate /etc/ssl/meterio.crt;
-	ssl_certificate_key /etc/ssl/meterio.key;
-	ssl_session_tickets off;
-
-	index index.html;
-	root /var/www/explorer;
-}
 ```
 
-run build command and the copy everything under `dist` to `/var/www/scan`, and Enjoy!
+## Tips
 
-please don't forget to enable cors configs on your server, in this case, the configs would be `--api-cors http://scan.meter.io --api-cors https://scan.meter.io`
+---
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+please don't forget to enable cors configs on your server, in this case, the configs would be `--api-cors http://scan.meter.io` or `--api-cors *`
+
+## License
+
+---
+
+See the [LICENSE](/LICENSE.md) file for license rights and limitations (MIT).
