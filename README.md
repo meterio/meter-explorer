@@ -1,33 +1,27 @@
 # Meter Explorer
 
----
-
 Meter explorer is a browser project that displays information of latest blocks finalized on meter testnet.
 
-## Contribute
-
----
-
-### Setup & Run
+## Setup & Run
 
 ```
 npm install
 npm run serve
 ```
 
-### Build and release
+## Build and release
 
 ```
 npm run build
 ```
 
-### Test
+## Test
 
 ```
 npm run test
 ```
 
-### Deployment
+## Deployment
 
 sample nginx config
 
@@ -43,12 +37,8 @@ server {
 
 ## Tips
 
----
-
 please don't forget to enable cors configs on your server, in this case, the configs would be `--api-cors http://scan.meter.io` or `--api-cors *`
 
 ## License
-
----
 
 See the [LICENSE](/LICENSE.md) file for license rights and limitations (MIT).
