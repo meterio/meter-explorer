@@ -16,6 +16,10 @@
 import { web3 } from '../client';
 import BlockCard from '../components/BlockCard.vue';
 
+const REFRESH_INTERVAL = 1000; // milliseconds (interval to update block timestamp)
+const FETCH_INTERVAL = 4000; // milliseconds (interval to fetch blocks)
+const CACHE_MAX_SIZE = 20; // entries
+const BATCH_SIZE = 10;
 export default {
   name: 'RecentBlocks',
   components: {
@@ -33,18 +37,13 @@ export default {
     };
   },
   methods: {
-    async loadBlock(height) {
-      if (height in this.blockCache) {
-        return;
-      }
-      const blk = await web3.eth.getBlock(height);
-      this.blockCache[height] = blk;
-      let cur = height;
-
+    updateView() {
       // extend the bottom
-      cur = this.bottomHeight - 1;
+      let cur = this.bottomHeight - 1;
+      let bottomExtended = false;
+      let topExtended = false;
       while (cur in this.blockCache) {
-        console.log('extend bottom to ', cur);
+        bottomExtended = true;
         this.bottomHeight = cur;
         this.blocks.push(this.blockCache[cur]);
         cur -= 1;
@@ -52,26 +51,45 @@ export default {
       // extend the top
       cur = this.topHeight + 1;
       while (cur in this.blockCache) {
-        console.log('extend top to ', cur);
+        topExtended = true;
         this.topHeight = cur;
         this.blocks.unshift(this.blockCache[cur]);
         cur += 1;
       }
-      console.log('loaded block at height, ', height);
+
+      // remove unused blocks only when the to is extended
+      /*
+      if (topExtended) {
+        while (this.blocks.length > CACHE_MAX_SIZE) {
+          const blk = this.blocks.pop();
+          delete this.blockCache[blk.number];
+        }
+      }
+      */
+    },
+    async loadBlock(height) {
+      if (height in this.blockCache) {
+        return;
+      }
+      const blk = await web3.eth.getBlock(height);
+      this.blockCache[height] = blk;
+
+      this.updateView();
+      // console.log("loaded block at height, ", height);
       return blk;
     },
     bottomVisible() {
       const { scrollY } = window;
       const visible = document.documentElement.clientHeight;
       const pageHeight = document.documentElement.scrollHeight;
-      const bottomOfPage = visible + scrollY >= pageHeight;
+      const bottomOfPage = visible + scrollY + 200 >= pageHeight;
       return bottomOfPage || pageHeight < visible;
     },
     async loadMoreBlocks() {
       const promises = [];
       for (
         let cur = this.bottomHeight - 1;
-        cur > this.bottomHeight - 7;
+        cur > this.bottomHeight - BATCH_SIZE - 1;
         cur -= 1
       ) {
         promises.push(this.loadBlock(cur));
@@ -99,6 +117,9 @@ export default {
     // timer
     window.setInterval(() => {
       this.now = Date.now();
+    }, REFRESH_INTERVAL);
+
+    window.setInterval(() => {
       web3.eth.getBlockNumber().then(async (height) => {
         const promises = [];
         for (let h = this.topHeight + 1; h < height; h += 1) {
@@ -106,13 +127,11 @@ export default {
         }
         await Promise.all(promises);
       });
-    }, 1000);
+    }, FETCH_INTERVAL);
 
     // initialize load
     web3.eth.getBlockNumber().then(async (height) => {
       const blk = await this.loadBlock(height);
-      console.log('init with height: ', height);
-      console.log(blk);
       this.blocks.push(blk);
       this.topHeight = height;
       this.bottomHeight = height;
