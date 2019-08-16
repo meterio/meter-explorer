@@ -2,7 +2,7 @@
   <div style="min-height:100%;background:#f5f5f5;">
     <!-- <img alt="Vue logo" src="/assets/logo.png"> -->
     <div>
-      <Navbar/>
+      <Navbar />
       <div class="container">
         <router-view :key="$route.fullPath"></router-view>
       </div>

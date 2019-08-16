@@ -11,7 +11,7 @@
               height="30"
               class="d-inline-block align-top mr-1"
               alt
-            >
+            />
             Meter Explorer
           </router-link>
         </b-navbar-brand>
@@ -45,21 +45,20 @@
 </template>
 
 <script>
-
 export default {
-  data: function() {
-    return { searchString: "" };
+  data() {
+    return { searchString: '' };
   },
   methods: {
     search() {
       const str = this.searchString;
-      this.searchString = "";
-      if (str == "") {
+      this.searchString = '';
+      if (str === '') {
         return;
       }
 
-      this.$router.push({ name: "search", query: { q: str } });
-    }
-  }
+      this.$router.push({ name: 'search', query: { q: str } });
+    },
+  },
 };
 </script>

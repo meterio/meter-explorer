@@ -19,26 +19,27 @@
 </template>
 
 <script>
-import { web3 } from "../client";
+import { web3 } from '../client';
+
 export default {
-  data: function() {
+  data() {
     return {
       mtrgBalance: 0,
-      mtrBalance: 0
+      mtrBalance: 0,
     };
   },
-  mounted: function() {
+  mounted() {
     web3.eth.getBalance(this.$route.params.addr).then(
-      function(result) {
+      (result) => {
         this.mtrgBalance = result;
-      }.bind(this)
+      },
     );
 
     web3.eth.getEnergy(this.$route.params.addr).then(
-      function(result) {
+      (result) => {
         this.mtrBalance = result;
-      }.bind(this)
+      },
     );
-  }
+  },
 };
 </script>

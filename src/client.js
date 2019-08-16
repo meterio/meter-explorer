@@ -1,10 +1,9 @@
-import { meterify } from "meterify";
-const Web3 = require("web3");
+import { meterify } from 'meterify';
 
-const web3 = meterify(new Web3(), "http://test.meter.io:8669");
+const Web3 = require('web3');
 
-const getBlockLatest = () => {
-  return web3.eth.getBlock("latest");
-};
+const web3 = meterify(new Web3(), 'http://test.meter.io:8669');
+
+const getBlockLatest = () => web3.eth.getBlock('latest');
 
 export { getBlockLatest, web3 };

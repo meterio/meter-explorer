@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h2>Transaction</h2>
+    <h2>
+      Transaction
+      <div v-if="!receipt.output" class="badge badge-danger">Reverted</div>
+    </h2>
     <b-card>
       <b-row>
         <b-col cols="2" class="field-name">
@@ -47,7 +50,8 @@
             <div>{{tx.blockRef}}</div>
             <div>{{tx.expiration}}</div>
             <div>{{tx.nonce}}</div>
-            <div>-
+            <div>
+              -
               <!--
               <span v-if="tx.dependsOn != undefined">-</span>
               <router-link v-else :to="{name:'tx', params:{id:tx.dependsOn}}">{{tx.dependsOn}}</router-link>
@@ -63,7 +67,7 @@
       <h4 class="text-gray pt-3">{{clauseText}}</h4>
       <div class="card my-2" v-for="(c,i) in tx.clauses" :key="i">
         <div class="card-body">
-          <Clause :clause="c" :output="receipt.outputs?receipt.outputs[i]:null"/>
+          <Clause :clause="c" :output="receipt.outputs?receipt.outputs[i]:null" />
         </div>
       </div>
     </div>
@@ -71,35 +75,32 @@
 </template>
 
 <script>
-import { web3 } from "../client";
-import Clause from "../components/Clause";
+import { web3 } from '../client';
+import Clause from '../components/Clause';
+
 export default {
   components: {
-    Clause
+    Clause,
   },
-  data: function() {
-    return { tx: {}, receipt: {}, clauseText: "" };
+  data() {
+    return { tx: {}, receipt: {}, clauseText: '' };
   },
-  mounted: function() {
-    web3.eth.getTransaction(this.$route.params.id).then(
-      function(tx) {
-        this.tx = tx;
-        const count = tx.clauses.length;
-        if (count == 0) {
-          this.clauseText = "No Clause";
-        } else if (count == 1) {
-          this.clauseText = "1 Clause";
-        } else {
-          this.clauseText = count.toString() + " Clauses";
-        }
-      }.bind(this)
-    );
+  mounted() {
+    web3.eth.getTransaction(this.$route.params.id).then((tx) => {
+      this.tx = tx;
+      const count = tx.clauses.length;
+      if (count === 0) {
+        this.clauseText = 'No Clause';
+      } else if (count === 1) {
+        this.clauseText = '1 Clause';
+      } else {
+        this.clauseText = `${count.toString()} Clauses`;
+      }
+    });
 
-    web3.eth.getTransactionReceipt(this.$route.params.id).then(
-      function(receipt) {
-        this.receipt = receipt;
-      }.bind(this)
-    );
-  }
+    web3.eth.getTransactionReceipt(this.$route.params.id).then((receipt) => {
+      this.receipt = receipt;
+    });
+  },
 };
 </script>

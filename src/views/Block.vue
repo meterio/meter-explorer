@@ -51,28 +51,27 @@
 </template>
 
 <script>
-import { web3 } from "../client";
+import { web3 } from '../client';
+
 export default {
   props: {},
-  data: function() {
+  data() {
     return {
       block: {},
-      txText: ""
+      txText: '',
     };
   },
-  mounted: function() {
-    web3.eth.getBlock(this.$route.params.id).then(
-      function(blk) {
-        this.block = blk;
-        if (blk.transactions) {
-          if (blk.transactions.length == 1) {
-            this.txText = "1 Transaction";
-          } else if (blk.transactions.length > 1) {
-            this.txText = new String(blk.transactions.length) + " Transactions";
-          }
+  mounted() {
+    web3.eth.getBlock(this.$route.params.id).then((blk) => {
+      this.block = blk;
+      if (blk.transactions) {
+        if (blk.transactions.length === 1) {
+          this.txText = '1 Transaction';
+        } else if (blk.transactions.length > 1) {
+          this.txText = `${blk.transactions.length} Transactions`;
         }
-      }.bind(this)
-    );
-  }
+      }
+    });
+  },
 };
 </script>

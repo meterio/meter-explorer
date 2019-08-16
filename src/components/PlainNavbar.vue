@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: "PlainNavbar"
+  name: 'PlainNavbar',
 };
 </script>
