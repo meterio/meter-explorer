@@ -2,100 +2,123 @@
   <div>
     <h2>Recent Blocks</h2>
 
-    <transition-group tag="div" name="block-list">
-      <div v-for="block in blocks" :key="block.number">
-        <BlockCard v-bind:block="block" v-bind:now="now"></BlockCard>
-      </div>
-    </transition-group>
+    <div v-if="blocks">
+      <transition-group tag="div" name="block-list">
+        <div v-for="block in blocks" :key="block.number">
+          <BlockCard v-bind:block="block" v-bind:now="now"></BlockCard>
+        </div>
+      </transition-group>
+    </div>
   </div>
 </template>
 
 <script>
-import { web3 } from "../client";
-import BlockCard from "../components/BlockCard.vue";
+import { web3 } from '../client';
+import BlockCard from '../components/BlockCard.vue';
 
 export default {
-  name: "RecentBlocks",
+  name: 'RecentBlocks',
   components: {
-    BlockCard
+    BlockCard,
   },
-  data: function() {
+  data() {
     return {
       blocks: [],
+      blockCache: {},
+
       topHeight: 0,
       bottomHeight: 0,
       bottom: false,
-      now: Date.now()
+      now: Date.now(),
     };
   },
   methods: {
-    loadBlock: async function(height) {
-      if (height <= this.bottomHeight) {
-        let blk = await web3.eth.getBlock(height);
-        this.blocks.push(blk);
-        this.bottomHeight = height - 1;
+    async loadBlock(height) {
+      if (height in this.blockCache) {
+        return;
       }
-      if (height >= this.topHeight) {
-        let blk = await web3.eth.getBlock(height);
-        this.blocks.unshift(blk);
-        this.topHeight = height;
+      const blk = await web3.eth.getBlock(height);
+      this.blockCache[height] = blk;
+      let cur = height;
+
+      // extend the bottom
+      cur = this.bottomHeight - 1;
+      while (cur in this.blockCache) {
+        console.log('extend bottom to ', cur);
+        this.bottomHeight = cur;
+        this.blocks.push(this.blockCache[cur]);
+        cur -= 1;
       }
+      // extend the top
+      cur = this.topHeight + 1;
+      while (cur in this.blockCache) {
+        console.log('extend top to ', cur);
+        this.topHeight = cur;
+        this.blocks.unshift(this.blockCache[cur]);
+        cur += 1;
+      }
+      console.log('loaded block at height, ', height);
+      return blk;
     },
-    bottomVisible: function() {
-      const scrollY = window.scrollY;
+    bottomVisible() {
+      const { scrollY } = window;
       const visible = document.documentElement.clientHeight;
       const pageHeight = document.documentElement.scrollHeight;
       const bottomOfPage = visible + scrollY >= pageHeight;
       return bottomOfPage || pageHeight < visible;
     },
-    loadMoreBlocks: async function() {
-      for (let i = 0; i < 6; i++) {
-        await this.loadBlock(this.bottomHeight);
+    async loadMoreBlocks() {
+      const promises = [];
+      for (
+        let cur = this.bottomHeight - 1;
+        cur > this.bottomHeight - 7;
+        cur -= 1
+      ) {
+        promises.push(this.loadBlock(cur));
       }
-    }
+      await Promise.all(promises);
+    },
   },
   watch: {
-    bottom: function(bottom) {
+    bottom(bottom) {
       if (bottom) {
         this.loadMoreBlocks();
       }
-    }
+    },
   },
-  created: function() {
+  created() {
     // console.log(this);
     this.blocks = [];
+    this.blockCache = {};
 
     // scroll event listener
-    window.addEventListener("scroll", () => {
+    window.addEventListener('scroll', () => {
       this.bottom = this.bottomVisible();
     });
 
     // timer
-    window.setInterval(
-      function() {
-        this.now = Date.now();
-        web3.eth.getBlockNumber().then(
-          async function(height) {
-            for (let h = this.topHeight + 1; h < height; h++) {
-              await this.loadBlock(h);
-            }
-          }.bind(this)
-        );
-      }.bind(this),
-      2000
-    );
+    window.setInterval(() => {
+      this.now = Date.now();
+      web3.eth.getBlockNumber().then(async (height) => {
+        const promises = [];
+        for (let h = this.topHeight + 1; h < height; h += 1) {
+          promises.push(this.loadBlock(h));
+        }
+        await Promise.all(promises);
+      });
+    }, 1000);
 
     // initialize load
-    web3.eth.getBlockNumber().then(
-      async function(height) {
-        this.topHeight = height;
-        this.bottomHeight = height - 1;
-        for (let i = 0; i < 6; i++) {
-          await this.loadBlock(this.topHeight - i);
-        }
-      }.bind(this)
-    );
-  }
+    web3.eth.getBlockNumber().then(async (height) => {
+      const blk = await this.loadBlock(height);
+      console.log('init with height: ', height);
+      console.log(blk);
+      this.blocks.push(blk);
+      this.topHeight = height;
+      this.bottomHeight = height;
+      await this.loadMoreBlocks();
+    });
+  },
 };
 </script>
 
