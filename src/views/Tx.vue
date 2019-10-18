@@ -2,7 +2,7 @@
   <div>
     <h2>
       Transaction
-      <div v-if="!receipt.output" class="badge badge-danger">Reverted</div>
+      <div v-if="!!receipt && receipt.reverted" class="badge badge-danger">Reverted</div>
     </h2>
     <b-card>
       <b-row>
