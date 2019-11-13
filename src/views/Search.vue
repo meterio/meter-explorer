@@ -1,9 +1,9 @@
 <template>
-  <div>{{error}}</div>
+  <div>{{ error }}</div>
 </template>
 
 <script>
-import { web3 } from '../client';
+import { getTransaction, getBlock } from '../client';
 
 export default {
   data() {
@@ -30,8 +30,8 @@ export default {
         // bytes32
         try {
           const [block, tx] = await Promise.all([
-            web3.eth.getBlock(str),
-            web3.eth.getTransaction(str),
+            getBlock(str),
+            getTransaction(str),
           ]);
 
           if (block) {
@@ -50,7 +50,7 @@ export default {
         const num = parseInt(str, 10);
         if (num < 2 ** 32) {
           try {
-            const block = await web3.eth.getBlock(num);
+            const block = await getBlock(num);
             if (block) {
               return this.$router.replace({
                 name: 'block',

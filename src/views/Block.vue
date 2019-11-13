@@ -18,32 +18,40 @@
           <div>Receipt Root</div>
         </b-col>
         <b-col cols="10" class="field-value">
-          <div>#{{block.number}}</div>
-          <div>{{block.id}}</div>
-          <div>{{block.size}}</div>
-          <div>{{block.timestamp}}</div>
+          <div>#{{ block.number }}</div>
+          <div>{{ block.id }}</div>
+          <div>{{ block.size }}</div>
+          <div>{{ block.timestamp }}</div>
           <div>
-            <router-link :to="{name:'block', params:{id:block.parentID}}">{{block.parentID}}</router-link>
+            <router-link
+              :to="{ name: 'block', params: { id: block.parentID } }"
+              >{{ block.parentID }}</router-link
+            >
           </div>
-          <div>{{block.gasUsed}}</div>
-          <div>{{block.totalScore}}</div>
+          <div>{{ block.gasUsed }}</div>
+          <div>{{ block.totalScore }}</div>
           <div>
-            <router-link :to="{name:'account',params:{addr:block.signer}}">{{block.signer}}</router-link>
+            <router-link
+              :to="{ name: 'account', params: { addr: block.signer } }"
+              >{{ block.signer }}</router-link
+            >
           </div>
-          <div>{{block.beneficiary}}</div>
-          <div>{{block.stateRoot}}</div>
-          <div>{{block.txsRoot}}</div>
-          <div>{{block.receiptsRoot}}</div>
+          <div>{{ block.beneficiary }}</div>
+          <div>{{ block.stateRoot }}</div>
+          <div>{{ block.txsRoot }}</div>
+          <div>{{ block.receiptsRoot }}</div>
         </b-col>
       </b-row>
     </b-card>
 
-    <div v-if="block.transactions && block.transactions.length>0">
-      <h4 class="text-gray pt-3">{{txText}}</h4>
-      <div class="card my-2" v-for="(tx,i) in block.transactions" :key="i">
+    <div v-if="block.transactions && block.transactions.length > 0">
+      <h4 class="text-gray pt-3">{{ txText }}</h4>
+      <div class="card my-2" v-for="(tx, i) in block.transactions" :key="i">
         <div class="card-body">
-          {{i+1}}.
-          <router-link :to="{name:'tx', params:{id:tx}}">{{tx}}</router-link>
+          {{ i + 1 }}.
+          <router-link :to="{ name: 'tx', params: { id: tx } }">{{
+            tx
+          }}</router-link>
         </div>
       </div>
     </div>
@@ -51,7 +59,7 @@
 </template>
 
 <script>
-import { web3 } from '../client';
+import { getBlock } from '../client';
 
 export default {
   props: {},
@@ -62,7 +70,7 @@ export default {
     };
   },
   mounted() {
-    web3.eth.getBlock(this.$route.params.id).then((blk) => {
+    getBlock(this.$route.params.id).then((blk) => {
       this.block = blk;
       if (blk.transactions) {
         if (blk.transactions.length === 1) {

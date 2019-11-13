@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { web3 } from '../client';
+import { getBlockNumber, getBlock } from '../client';
 import BlockCard from '../components/BlockCard.vue';
 
 const REFRESH_INTERVAL = 1000; // milliseconds (interval to update block timestamp)
@@ -71,7 +71,7 @@ export default {
       if (height in this.blockCache) {
         return;
       }
-      const blk = await web3.eth.getBlock(height);
+      const blk = await getBlock(height);
       this.blockCache[height] = blk;
 
       this.updateView();
@@ -120,7 +120,7 @@ export default {
     }, REFRESH_INTERVAL);
 
     window.setInterval(() => {
-      web3.eth.getBlockNumber().then(async (height) => {
+      getBlockNumber().then(async (height) => {
         const promises = [];
         for (let h = this.topHeight + 1; h < height; h += 1) {
           promises.push(this.loadBlock(h));
@@ -130,7 +130,7 @@ export default {
     }, FETCH_INTERVAL);
 
     // initialize load
-    web3.eth.getBlockNumber().then(async (height) => {
+    getBlockNumber().then(async (height) => {
       const blk = await this.loadBlock(height);
       this.blocks.push(blk);
       this.topHeight = height;

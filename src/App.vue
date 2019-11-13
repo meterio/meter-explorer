@@ -15,7 +15,7 @@ import { Vue, Component } from "vue-property-decorator";
 import Navbar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-import "vue-awesome/icons";
+// import "vue-awesome/icons";
 
 import "./style.scss";
 
