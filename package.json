@@ -1,6 +1,6 @@
 {
-  "name": "meter-explorer",
-  "version": "0.1.0",
+  "name": "meter-scan",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

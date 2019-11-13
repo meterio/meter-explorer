@@ -1,6 +1,6 @@
-# Meter Explorer
+# Meter Scan
 
-Meter explorer is a browser project that displays information of latest blocks finalized on meter testnet.
+Meter scan is a browser project that displays information of latest blocks finalized on meter testnet.
 
 ## Setup & Run
 
@@ -31,7 +31,7 @@ server {
 	server_name scan.meter.io;
 
 	index index.html;
-	root /var/www/explorer;
+	root /var/www/scan;
 }
 ```
 

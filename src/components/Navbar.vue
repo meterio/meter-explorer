@@ -12,7 +12,7 @@
               class="d-inline-block align-top mr-1"
               alt
             />
-            Meter Explorer
+            Meter Scan
           </router-link>
         </b-navbar-brand>
 
