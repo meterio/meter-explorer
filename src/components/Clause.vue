@@ -5,31 +5,31 @@
         <span
           class="badge text-uppercase"
           :class="output ? 'badge-success' : 'badge-danger'"
-          >{{ type }}</span
-        >
+        >{{ type }}</span>
       </b-col>
 
       <b-col cols="5">
-        <span class="mr-2 text-gray"
-          >{{ type === "create" ? "deployed" : "to" }}:</span
-        >
+        <span class="mr-2 text-gray">{{ type === "create" ? "deployed" : "to" }}:</span>
         <router-link
           :to="{
             name: 'account',
             params: { addr: clause.to || output.contractAddress }
           }"
-          >{{ clause.to || output.contractAddress | abbr }}</router-link
-        >
+        >{{ clause.to || output.contractAddress | abbr }}</router-link>
       </b-col>
 
       <b-col cols="4">
         <span class="mr-2 text-gray">value:</span>
-        <span v-if="clause.token == '1'" class="mtrg-amount">{{
+        <span v-if="clause.token == '1'" class="mtrg-amount">
+          {{
           clause.value | amount
-        }}</span>
-        <span v-if="clause.token == '0'" class="mtr-amount">{{
+          }}
+        </span>
+        <span v-if="clause.token == '0'" class="mtr-amount">
+          {{
           clause.value | amount
-        }}</span>
+          }}
+        </span>
       </b-col>
       <b-col cols="1">
         <button
@@ -67,12 +67,7 @@
           <div class="heading mt-2 mb-1">transfers</div>
           <div class="caption">
             <template v-if="output.transfers.length > 0">
-              <Transfer
-                v-for="(item, i) in output.transfers"
-                :key="i"
-                :item="item"
-                :index="i + 1"
-              />
+              <Transfer v-for="(item, i) in output.transfers" :key="i" :item="item" :index="i + 1" />
             </template>
             <span v-else class="text-gray">- None -</span>
           </div>
@@ -82,12 +77,7 @@
           <div class="heading mt-2 mb-1">events</div>
           <div class="caption">
             <template v-if="output.events.length > 0">
-              <Event
-                v-for="(item, i) in output.events"
-                :key="i"
-                :item="item"
-                :index="i + 1"
-              />
+              <Event v-for="(item, i) in output.events" :key="i" :item="item" :index="i + 1" />
             </template>
             <span v-else class="text-gray">- None -</span>
           </div>

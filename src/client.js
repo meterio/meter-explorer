@@ -1,19 +1,21 @@
-const axios = require('axios').default;
+const axios = require("axios").default;
 
-const BASE_URL = 'http://test.meter.io:8669';
+const BASE_URL = "http://test.meter.io:8669";
 
-const getBlockNumber = () => axios
+const getBlockNumber = () => {
+  return axios
     .get(`${BASE_URL}/blocks/best`)
-    .then((response) => {
+    .then(response => {
       console.log(response.data);
       return Promise.resolve(response.data.number);
     })
     .catch(err => Promise.reject(err));
+};
 
-const getBlock = (id) => {
+const getBlock = id => {
   let blockID = id;
-  if (typeof id === 'undefined') {
-    blockID = 'latest';
+  if (typeof id === "undefined") {
+    blockID = "latest";
   }
   return axios
     .get(`${BASE_URL}/blocks/${blockID}`)
@@ -21,20 +23,20 @@ const getBlock = (id) => {
     .catch(err => Promise.reject(err));
 };
 
-const getTransaction = (id) => {
+const getTransaction = id => {
   let txID = id;
-  if (typeof id === 'undefined') {
-    txID = '';
+  if (typeof id === "undefined") {
+    txID = "";
   }
   return axios
     .get(`${BASE_URL}/transactions/${txID}`)
     .then(response => Promise.resolve(response.data))
     .catch(err => Promise.reject(err));
 };
-const getTransactionReceipt = (id) => {
+const getTransactionReceipt = id => {
   let txID = id;
-  if (typeof id === 'undefined') {
-    txID = '';
+  if (typeof id === "undefined") {
+    txID = "";
   }
   return axios
     .get(`${BASE_URL}/transactions/${txID}/receipt`)
@@ -42,20 +44,20 @@ const getTransactionReceipt = (id) => {
     .catch(err => Promise.reject(err));
 };
 
-const getBalance = (id) => {
+const getBalance = id => {
   const accountID = id;
-  if (typeof id === 'undefined') {
-    return Promise.reject(new Error('account id is required'));
+  if (typeof id === "undefined") {
+    return Promise.reject(new Error("account id is required"));
   }
   return axios
     .get(`${BASE_URL}/accounts/${accountID}`)
     .then(response => Promise.resolve(response.data.balance))
     .catch(err => Promise.reject(err));
 };
-const getEnergy = (id) => {
+const getEnergy = id => {
   const accountID = id;
-  if (typeof id === 'undefined') {
-    return Promise.reject(new Error('account id is required'));
+  if (typeof id === "undefined") {
+    return Promise.reject(new Error("account id is required"));
   }
   return axios
     .get(`${BASE_URL}/accounts/${accountID}`)
@@ -69,5 +71,5 @@ export {
   getTransaction,
   getTransactionReceipt,
   getBalance,
-  getEnergy,
+  getEnergy
 };
