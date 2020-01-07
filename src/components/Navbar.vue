@@ -35,7 +35,7 @@
                 @keydown.enter.native="search"
                 style="width:300px;"
               />
-              <b-button size="sm" class="my-2 my-sm-0" variant="success" @click="search">Search</b-button>
+              <b-button class="my-2 my-sm-0" size="sm" variant="success" @click="search">Search</b-button>
             </b-nav-form>
           </b-navbar-nav>
         </b-collapse>
@@ -58,7 +58,7 @@ export default {
       }
 
       this.$router.push({ name: 'search', query: { q: str } });
-    },
-  },
+    }
+  }
 };
 </script>

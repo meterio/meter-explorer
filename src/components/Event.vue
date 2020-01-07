@@ -2,18 +2,18 @@
   <div class="sub-panel">
     <b-card>
       <div slot="header">
-        {{index}}. Emitter
-        <router-link :to="{name:'account', params:{addr:item.address}}">{{item.address}}</router-link>
+        {{ index }}. Emitter
+        <router-link :to="{ name: 'account', params: { addr: item.address } }">{{ item.address }}</router-link>
       </div>
       <b-row>
         <b-col cols="2">Topics</b-col>
         <b-col cols="10">
-          <pre>{{item.topics.join('\n')}}</pre>
+          <pre>{{ item.topics.join('\n') }}</pre>
         </b-col>
 
         <b-col cols="2">Data</b-col>
         <b-col cols="10">
-          <pre>{{item.data}}</pre>
+          <pre>{{ item.data }}</pre>
         </b-col>
       </b-row>
     </b-card>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  props: ['index', 'item'],
+  props: ['index', 'item']
 };
 </script>
 

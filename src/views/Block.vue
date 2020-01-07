@@ -25,16 +25,14 @@
           <div>
             <router-link
               :to="{ name: 'block', params: { id: block.parentID } }"
-              >{{ block.parentID }}</router-link
-            >
+            >{{ block.parentID }}</router-link>
           </div>
           <div>{{ block.gasUsed }}</div>
           <div>{{ block.totalScore }}</div>
           <div>
             <router-link
               :to="{ name: 'account', params: { addr: block.signer } }"
-              >{{ block.signer }}</router-link
-            >
+            >{{ block.signer }}</router-link>
           </div>
           <div>{{ block.beneficiary }}</div>
           <div>{{ block.stateRoot }}</div>
@@ -49,9 +47,7 @@
       <div class="card my-2" v-for="(tx, i) in block.transactions" :key="i">
         <div class="card-body">
           {{ i + 1 }}.
-          <router-link :to="{ name: 'tx', params: { id: tx } }">{{
-            tx
-          }}</router-link>
+          <router-link :to="{ name: 'tx', params: { id: tx } }">{{ tx }}</router-link>
         </div>
       </div>
     </div>
@@ -66,11 +62,11 @@ export default {
   data() {
     return {
       block: {},
-      txText: '',
+      txText: ''
     };
   },
   mounted() {
-    getBlock(this.$route.params.id).then((blk) => {
+    getBlock(this.$route.params.id).then(blk => {
       this.block = blk;
       if (blk.transactions) {
         if (blk.transactions.length === 1) {
@@ -80,6 +76,6 @@ export default {
         }
       }
     });
-  },
+  }
 };
 </script>

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getBalance, getEnergy } from "../client";
+import { getBalance, getEnergy } from '../client';
 
 export default {
   data() {

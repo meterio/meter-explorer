@@ -18,12 +18,11 @@ import BlockCard from '../components/BlockCard.vue';
 
 const REFRESH_INTERVAL = 1000; // milliseconds (interval to update block timestamp)
 const FETCH_INTERVAL = 4000; // milliseconds (interval to fetch blocks)
-const CACHE_MAX_SIZE = 20; // entries
 const BATCH_SIZE = 10;
 export default {
   name: 'RecentBlocks',
   components: {
-    BlockCard,
+    BlockCard
   },
   data() {
     return {
@@ -33,17 +32,14 @@ export default {
       topHeight: 0,
       bottomHeight: 0,
       bottom: false,
-      now: Date.now(),
+      now: Date.now()
     };
   },
   methods: {
     updateView() {
       // extend the bottom
       let cur = this.bottomHeight - 1;
-      let bottomExtended = false;
-      let topExtended = false;
       while (cur in this.blockCache) {
-        bottomExtended = true;
         this.bottomHeight = cur;
         this.blocks.push(this.blockCache[cur]);
         cur -= 1;
@@ -51,21 +47,10 @@ export default {
       // extend the top
       cur = this.topHeight + 1;
       while (cur in this.blockCache) {
-        topExtended = true;
         this.topHeight = cur;
         this.blocks.unshift(this.blockCache[cur]);
         cur += 1;
       }
-
-      // remove unused blocks only when the to is extended
-      /*
-      if (topExtended) {
-        while (this.blocks.length > CACHE_MAX_SIZE) {
-          const blk = this.blocks.pop();
-          delete this.blockCache[blk.number];
-        }
-      }
-      */
     },
     async loadBlock(height) {
       if (height in this.blockCache) {
@@ -95,14 +80,14 @@ export default {
         promises.push(this.loadBlock(cur));
       }
       await Promise.all(promises);
-    },
+    }
   },
   watch: {
     bottom(bottom) {
       if (bottom) {
         this.loadMoreBlocks();
       }
-    },
+    }
   },
   created() {
     // console.log(this);
@@ -120,7 +105,7 @@ export default {
     }, REFRESH_INTERVAL);
 
     window.setInterval(() => {
-      getBlockNumber().then(async (height) => {
+      getBlockNumber().then(async height => {
         const promises = [];
         for (let h = this.topHeight + 1; h < height; h += 1) {
           promises.push(this.loadBlock(h));
@@ -130,14 +115,14 @@ export default {
     }, FETCH_INTERVAL);
 
     // initialize load
-    getBlockNumber().then(async (height) => {
+    getBlockNumber().then(async height => {
       const blk = await this.loadBlock(height);
       this.blocks.push(blk);
       this.topHeight = height;
       this.bottomHeight = height;
       await this.loadMoreBlocks();
     });
-  },
+  }
 };
 </script>
 

@@ -9,7 +9,7 @@
       </b-col>
 
       <b-col cols="5">
-        <span class="mr-2 text-gray">{{ type === "create" ? "deployed" : "to" }}:</span>
+        <span class="mr-2 text-gray">{{ type === 'create' ? 'deployed' : 'to' }}:</span>
         <router-link
           :to="{
             name: 'account',
@@ -20,16 +20,8 @@
 
       <b-col cols="4">
         <span class="mr-2 text-gray">value:</span>
-        <span v-if="clause.token == '1'" class="mtrg-amount">
-          {{
-          clause.value | amount
-          }}
-        </span>
-        <span v-if="clause.token == '0'" class="mtr-amount">
-          {{
-          clause.value | amount
-          }}
-        </span>
+        <span v-if="clause.token == '1'" class="mtrg-amount">{{ clause.value | amount }}</span>
+        <span v-if="clause.token == '0'" class="mtr-amount">{{ clause.value | amount }}</span>
       </b-col>
       <b-col cols="1">
         <button
@@ -108,6 +100,6 @@ export default {
     } else {
       this.type = 'create';
     }
-  },
+  }
 };
 </script>
