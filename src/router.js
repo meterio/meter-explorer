@@ -8,6 +8,8 @@ import Account from './views/Account.vue';
 import Search from './views/Search.vue';
 import CandidateList from './views/CandidateList.vue';
 import BucketList from './views/BucketList.vue';
+import Buckets from './views/Buckets.vue';
+import Bucket from './views/Bucket.vue';
 
 Vue.use(VueRouter);
 
@@ -19,7 +21,13 @@ const routes = [
   { path: '/account/:addr', name: 'account', component: Account },
   { path: '/search', name: 'search', component: Search },
   { path: '/candidates', name: 'candidates', component: CandidateList },
-  { path: '/buckets', name: 'buckets', component: BucketList }
+  { path: '/buckets', name: 'buckets', component: BucketList },
+  { path: '/bucket/:id', name: 'bucket', component: Bucket },
+  {
+    path: '/buckets/:owner/:candidate',
+    name: 'targetted-buckets',
+    component: Buckets
+  }
 ];
 
 export default new VueRouter({

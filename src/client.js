@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 
-const BASE_URL = 'http://54.213.240.169:8669';
+const BASE_URL = 'http://35.160.75.220:8669';
 
 const getBlockNumber = () =>
   axios
@@ -82,6 +82,15 @@ const getStakingBuckets = () =>
     })
     .catch(err => Promise.reject(err));
 
+const getStakingBucketById = id =>
+  axios
+    .get(`${BASE_URL}/staking/buckets/${id}`)
+    .then(response => {
+      console.log(response.data);
+      return Promise.resolve(response.data);
+    })
+    .catch(err => Promise.reject(err));
+
 const getConsensusCommittee = () =>
   axios
     .get(`${BASE_URL}/node/consensus/committee`)
@@ -100,5 +109,6 @@ export {
   getEnergy,
   getStakingCandidates,
   getStakingBuckets,
+  getStakingBucketById,
   getConsensusCommittee
 };
