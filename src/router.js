@@ -10,6 +10,7 @@ import CandidateList from './views/CandidateList.vue';
 import BucketList from './views/BucketList.vue';
 import Buckets from './views/Buckets.vue';
 import Bucket from './views/Bucket.vue';
+import Metrics from './views/Metrics.vue';
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,7 @@ const routes = [
   { path: '/candidates', name: 'candidates', component: CandidateList },
   { path: '/buckets', name: 'buckets', component: BucketList },
   { path: '/bucket/:id', name: 'bucket', component: Bucket },
+  { path: '/metrics', name: 'metrics', component: Metrics },
   {
     path: '/buckets/:owner/:candidate',
     name: 'targetted-buckets',
