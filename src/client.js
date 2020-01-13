@@ -1,6 +1,7 @@
 const axios = require('axios').default;
 
-const BASE_URL = 'http://35.160.75.220:8669';
+const BASE = process.env.VUE_APP_SERVER;
+const BASE_URL = `http://${BASE}:8669`;
 
 const getBlockNumber = () =>
   axios
