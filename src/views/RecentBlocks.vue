@@ -93,6 +93,7 @@ export default {
     // console.log(this);
     this.blocks = [];
     this.blockCache = {};
+    console.log('talking to:', process.env.VUE_APP_SERVER);
 
     // scroll event listener
     window.addEventListener('scroll', () => {
