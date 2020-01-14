@@ -10,9 +10,11 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "docker:build": "cross-conf-env docker image build . -t $npm_package_config_imageRepo:$npm_package_version",
-    "docker:tag": " cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:latest",
+    "docker:tag-latest": " cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:latest",
+    "docker:tag-dev": " cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:dev",
     "docker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo:$npm_package_version",
-    "postdocker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo:latest"
+    "docker:publish-latest": "cross-conf-env docker image push $npm_package_config_imageRepo:latest",
+    "docker:publish-dev": "cross-conf-env docker image push $npm_package_config_imageRepo:dev"
   },
   "dependencies": {
     "axios": "^0.19.0",
