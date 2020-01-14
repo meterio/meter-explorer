@@ -1,5 +1,5 @@
 #! /bin/bash
-npm run build
+npm run build -- --mode development
 npm run docker:build
 npm run docker:tag
 npm run docker:publish
