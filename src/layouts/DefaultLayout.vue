@@ -1,29 +1,29 @@
 <template>
-  <component :is="layout">
-    <router-view :key="$route.fullPath"></router-view>
-  </component>
+  <div style="min-height:100%;background:#f5f5f5;">
+    <div>
+      <Navbar />
+      <div class="container">
+        <slot />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { Vue, Component } from 'vue-property-decorator';
-import Navbar from './components/Navbar';
+import Navbar from '../components/Navbar';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 // import "vue-awesome/icons";
 
-import './style.scss';
-const default_layout = 'default-layout';
+import '../style.scss';
 
 @Component({
   components: {
     Navbar
   }
 })
-export default class App extends Vue {
-  get layout() {
-    return this.$route.meta.layout || default_layout;
-  }
-}
+export default class DefaultLayout extends Vue {}
 </script>
 
 <style>

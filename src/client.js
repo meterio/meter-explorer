@@ -1,7 +1,16 @@
 const axios = require('axios').default;
 
-const BASE = process.env.VUE_APP_SERVER;
-const BASE_URL = `http://${BASE}:8669`;
+const BASE_URL = process.env.VUE_APP_SERVER;
+
+const getMTRGStat = () => {
+  return axios
+    .get(`http://bridge-api.meter.io/coins/MTRG`)
+    .then(response => {
+      console.log(response.data);
+      return Promise.resolve(response.data);
+    })
+    .catch(err => Promise.reject(err));
+};
 
 const getBlockNumber = () =>
   axios
@@ -111,5 +120,6 @@ export {
   getStakingCandidates,
   getStakingBuckets,
   getStakingBucketById,
-  getConsensusCommittee
+  getConsensusCommittee,
+  getMTRGStat
 };

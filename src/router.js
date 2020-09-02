@@ -11,6 +11,8 @@ import BucketList from './views/BucketList.vue';
 import Buckets from './views/Buckets.vue';
 import Bucket from './views/Bucket.vue';
 import Metrics from './views/Metrics.vue';
+import TotalSupply from './views/TotalSupply.vue';
+import Circulating from './views/Circulating.vue';
 
 Vue.use(VueRouter);
 
@@ -29,6 +31,18 @@ const routes = [
     path: '/buckets/:owner/:candidate',
     name: 'targetted-buckets',
     component: Buckets
+  },
+  {
+    path: '/mtrg/totalSupply',
+    name: 'total-supply',
+    component: TotalSupply,
+    meta: { layout: 'no-layout' }
+  },
+  {
+    path: '/mtrg/circulating',
+    name: 'circulating',
+    component: Circulating,
+    meta: { layout: 'no-layout' }
   }
 ];
 

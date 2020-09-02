@@ -3,7 +3,7 @@
     <h2>Bucket</h2>
     <b-card>
       <b-row>
-        <b-col cols="2" class="field-name">
+        <b-col cols="2" class="field-name pa-3">
           <div>Id</div>
           <div>Owner</div>
           <div>Candidate</div>
